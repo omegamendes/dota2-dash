@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by omegamendes on 7/17/16.
  */
-public class MatchHistoryResult {
+public class MatchHistory {
     
     private Integer status;
     @SerializedName("matches") private List<Match> matches;

@@ -25,4 +25,12 @@ public class Match {
     public void setLobbyType(Integer lobbyType) {
         this.lobbyType = lobbyType;
     }
+    
+    @Override
+    public String toString() {
+        return "Match{" +
+                "match_id='" + id + '\'' +
+                ", lobby_type='" + lobbyType + '\'' +
+                '}';
+    }
 }

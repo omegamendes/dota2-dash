@@ -2,6 +2,8 @@ package com.omegamendes.dash.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
+
 /**
  * Created by omegamendes on 7/17/16.
  */
@@ -33,5 +35,13 @@ public class Player {
     
     public void setHeroId(Long heroId) {
         this.heroId = heroId;
+    }
+    
+    @Override
+    public String toString() {
+        return "Player{" +
+                "account_id='" + id + '\'' +
+                ", hero_id ='" + heroId + '\'' +
+                '}';
     }
 }
