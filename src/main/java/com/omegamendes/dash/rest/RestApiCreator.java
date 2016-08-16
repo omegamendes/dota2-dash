@@ -3,6 +3,7 @@ package com.omegamendes.dash.rest;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import org.springframework.stereotype.Component;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,6 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by omegamendes on 7/17/16.
  */
+@Component
 public class RestApiCreator {
     
     public static Dota2API dota2API() {
@@ -21,6 +23,7 @@ public class RestApiCreator {
     
             HttpUrl url = originalHttpUrl.newBuilder()
                     .addQueryParameter("key", "E887EA32AD3B685AEEFDA3D773CC3112")
+                    .addQueryParameter("matches_requested", "5")
                     .build();
     
             // Request customization: add request headers

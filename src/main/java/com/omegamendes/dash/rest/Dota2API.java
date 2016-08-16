@@ -4,6 +4,7 @@ import com.omegamendes.dash.model.MatchDetail;
 import com.omegamendes.dash.model.MatchHistory;
 import com.omegamendes.dash.model.Result;
 import com.omegamendes.dash.model.SteamID;
+import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

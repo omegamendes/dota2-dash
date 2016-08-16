@@ -1,2 +1,6 @@
 .idea
 target
+build
+build/*
+\build
+*.class

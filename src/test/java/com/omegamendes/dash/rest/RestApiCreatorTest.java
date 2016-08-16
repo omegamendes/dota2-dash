@@ -1,5 +1,6 @@
 package com.omegamendes.dash.rest;
 
+import com.omegamendes.dash.api.Dota2DashCore;
 import com.omegamendes.dash.model.MatchDetail;
 import com.omegamendes.dash.model.MatchHistory;
 import com.omegamendes.dash.model.Player;
@@ -12,38 +13,60 @@ import rx.Observable;
 import rx.schedulers.Schedulers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by omegamendes on 7/17/16.
  */
 public class RestApiCreatorTest {
+
+    private Dota2DashCore core = new Dota2DashCore();
+
     @Test
     public void getMatchHistory() throws IOException {
         Dota2API api = RestApiCreator.dota2API();
-        Observable<Result<MatchHistory>> payload = api.matchHistory("76561198043220138");
-    
-        Observable<MatchDetail> matches = payload.subscribeOn(Schedulers.io())
+        Observable<Result<MatchHistory>> payload = api.matchHistory(String.valueOf(core.getSteamId64("Marcelo_SOAD")));
+
+
+        //Remove to test
+//        Observable<MatchDetail> matches = payload.subscribeOn(Schedulers.io())
+        Observable<MatchDetail> matches = payload
                 .flatMap(result1 -> Observable.just(result1.result))
                 .flatMap(result -> Observable.from(result.getMatches()))
                 .flatMap(match -> api.matchDetail(match.getId()))
                 .flatMap(match -> Observable.just(match.result));
-        
-        Observable<Player> players = matches.flatMap(match -> Observable.from(match.getPlayers()));
-        
+
+        matches.flatMap(match -> Observable.from(
+                match.getPlayers()))
+                .toList()
+                .subscribe(players ->
+                        Assert.assertThat("Returned all players", players.size(), CoreMatchers.equalTo(50)));
+
 //        Observable<Player> averages = players.filter(player -> player.getId().equals());
-    
-        try {
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
     
     @Test
     public void getSteamID() throws IOException {
-        Long steam64bitId = RestApiCreator.dota2API().resolveName("omegamendes").execute().body().response.getSteamId();
-        Assert.assertThat("Id retornou corretamente", steam64bitId, CoreMatchers.equalTo(76561198043220138L));
-        Long steam32bitId = steam64bitId - Dota2API.STEAM_ID_32;
-        Assert.assertThat("Converteu corretamente", steam32bitId, CoreMatchers.equalTo(82954410L));
+
+        Dota2DashCore core = new Dota2DashCore();
+        Assert.assertThat("Converteu corretamente", core.getSteamId64("omegamendes"), CoreMatchers.equalTo(76561198043220138L));
+        Assert.assertThat("Converteu corretamente", core.getSteamId64("Marcelo_SOAD"), CoreMatchers.equalTo(76561198024879872L));
     }
+
+    @Test
+    public void getSteamIDByList() throws IOException {
+
+        List<String> nicks = new ArrayList<>();
+        nicks.add("omegamendes");
+        nicks.add("Marcelo_SOAD");
+
+        List<Long> steamIds = core.getSteamId64(nicks);
+
+        Assert.assertThat("Converteu corretamente", steamIds, CoreMatchers.hasItem(76561198043220138L));
+        Assert.assertThat("Converteu corretamente", steamIds, CoreMatchers.hasItem(76561198024879872L));
+    }
+
+
 }
+
