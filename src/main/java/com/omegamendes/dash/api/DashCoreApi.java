@@ -42,12 +42,5 @@ public class DashCoreApi {
                     return null;
                 }).toList().toBlocking().single();
 
-        //        Long steam64bitId = null;
-        //        try {
-        //            steam64bitId = RestApiCreator.dota2API().resolveName(nickName).execute().body().response.getSteamId();
-        //        } catch (IOException e) {
-        //            logger.log(Level.SEVERE, "Cant resolve name");
-        //        }
-        //        return steam64bitId;
     }
 }

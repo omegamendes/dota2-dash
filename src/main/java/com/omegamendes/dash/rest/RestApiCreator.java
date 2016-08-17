@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by omegamendes on 7/17/16.
  */
-@Component
 public class RestApiCreator {
     
     public static Dota2API dota2API() {
