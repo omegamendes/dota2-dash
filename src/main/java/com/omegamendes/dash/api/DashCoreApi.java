@@ -1,13 +1,10 @@
 package com.omegamendes.dash.api;
 
-import com.omegamendes.dash.model.Result;
-import com.omegamendes.dash.model.SteamID;
 import com.omegamendes.dash.rest.Dota2API;
 import com.omegamendes.dash.rest.RestApiCreator;
 import rx.Observable;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,11 +12,11 @@ import java.util.logging.Logger;
 /**
  * Created by mame on 16/08/2016.
  */
-public class Dota2DashCore {
+public class DashCoreApi {
 
     Dota2API api = RestApiCreator.dota2API();
 
-    Logger logger = Logger.getLogger(Dota2DashCore.class.getName());
+    Logger logger = Logger.getLogger(DashCoreApi.class.getName());
 
     public Long getSteamId64(String nickName) {
         try {

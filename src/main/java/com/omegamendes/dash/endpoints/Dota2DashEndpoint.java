@@ -12,11 +12,11 @@ import java.util.List;
  * Created by mame on 16/08/2016.
  */
 @RestController
-public class Dota2Dash{
+public class Dota2DashEndpoint {
 
         @RequestMapping("/")
         @ResponseBody
-        String home(@RequestBody List<String> names) {
+        String home(@RequestBody(required = false) List<String> names) {
             return "home";
         }
 }

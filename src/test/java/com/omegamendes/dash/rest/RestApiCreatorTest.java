@@ -1,16 +1,13 @@
 package com.omegamendes.dash.rest;
 
-import com.omegamendes.dash.api.Dota2DashCore;
+import com.omegamendes.dash.api.DashCoreApi;
 import com.omegamendes.dash.model.MatchDetail;
 import com.omegamendes.dash.model.MatchHistory;
-import com.omegamendes.dash.model.Player;
 import com.omegamendes.dash.model.Result;
 import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Test;
 import rx.Observable;
-import rx.schedulers.Schedulers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ import java.util.List;
  */
 public class RestApiCreatorTest {
 
-    private Dota2DashCore core = new Dota2DashCore();
+    private DashCoreApi core = new DashCoreApi();
 
     @Test
     public void getMatchHistory() throws IOException {
@@ -49,7 +46,7 @@ public class RestApiCreatorTest {
     @Test
     public void getSteamID() throws IOException {
 
-        Dota2DashCore core = new Dota2DashCore();
+        DashCoreApi core = new DashCoreApi();
         Assert.assertThat("Converteu corretamente", core.getSteamId64("omegamendes"), CoreMatchers.equalTo(76561198043220138L));
         Assert.assertThat("Converteu corretamente", core.getSteamId64("Marcelo_SOAD"), CoreMatchers.equalTo(76561198024879872L));
     }
