@@ -1,11 +1,12 @@
 package com.omegamendes.dash.endpoints;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,9 +15,22 @@ import java.util.List;
 @RestController
 public class Dota2DashEndpoint {
 
-        @RequestMapping("/")
+        @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
         @ResponseBody
-        String home(@RequestBody(required = false) List<String> names) {
-            return "home";
+        ResponseEntity<List<String>> home(@RequestBody(required = false) ArrayList<String> names) {
+
+            names.add("backend");
+            ResponseEntity<List<String>> entity = new ResponseEntity<>(names, HttpStatus.OK);
+
+            return entity;
         }
+
+    @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<List<String>> get() {
+
+        ResponseEntity<List<String>> entity = new ResponseEntity<>(HttpStatus.OK);
+
+        return entity;
+    }
 }

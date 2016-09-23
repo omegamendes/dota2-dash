@@ -14,9 +14,9 @@ import java.util.logging.Logger;
  */
 public class DashCoreApi {
 
-    Dota2API api = RestApiCreator.dota2API();
+    private Dota2API api = RestApiCreator.dota2API();
 
-    Logger logger = Logger.getLogger(DashCoreApi.class.getName());
+    private Logger logger = Logger.getLogger(DashCoreApi.class.getName());
 
     public Long getSteamId64(String nickName) {
         try {
