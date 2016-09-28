@@ -1,9 +1,6 @@
 package com.omegamendes.dash.rest;
 
-import com.omegamendes.dash.model.MatchDetail;
-import com.omegamendes.dash.model.MatchHistory;
-import com.omegamendes.dash.model.Result;
-import com.omegamendes.dash.model.SteamID;
+import com.omegamendes.dash.model.*;
 import org.springframework.stereotype.Component;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -21,9 +18,14 @@ public interface Dota2API {
     @GET("http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/")
     Call<Result<SteamID>> resolveName(@Query("vanityurl") String steamName);
     
-    @GET("IDOTA2Match_570/GetMatchHistory/V001")
+    @GET("https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001")
     Observable<Result<MatchHistory>> matchHistory(@Query("account_id") String accountId);
     
     @GET("https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001")
     Observable<Result<MatchDetail>> matchDetail(@Query("match_id") Long matchId);
+
+    @GET("http://api.steampowered.com/IEconDOTA2_570/GetHeroes/v1?&language=eng")
+    Observable<Result<HeroesResult>> getHeroes();
+
+
 }

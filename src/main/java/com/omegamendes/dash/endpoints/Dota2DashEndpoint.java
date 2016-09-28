@@ -12,21 +12,18 @@ import java.util.List;
 /**
  * Created by mame on 16/08/2016.
  */
-@RestController
-public class Dota2DashEndpoint {
+@RestController public class Dota2DashEndpoint {
 
-        @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-        @ResponseBody
-        ResponseEntity<List<String>> home(@RequestBody(required = false) ArrayList<String> names) {
+    @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST) @ResponseBody
+    ResponseEntity<List<String>> home(@RequestBody(required = false) ArrayList<String> names) {
 
-            names.add("backend");
-            ResponseEntity<List<String>> entity = new ResponseEntity<>(names, HttpStatus.OK);
+        names.add("backend");
+        ResponseEntity<List<String>> entity = new ResponseEntity<>(names, HttpStatus.OK);
 
-            return entity;
-        }
+        return entity;
+    }
 
-    @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    @ResponseBody
+    @RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET) @ResponseBody
     ResponseEntity<List<String>> get() {
 
         ResponseEntity<List<String>> entity = new ResponseEntity<>(HttpStatus.OK);

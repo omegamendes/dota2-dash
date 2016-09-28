@@ -29,8 +29,7 @@ public class RestApiCreatorTest {
         //Remove to test
 //        Observable<MatchDetail> matches = payload.subscribeOn(Schedulers.io())
         Observable<MatchDetail> matches = payload
-                .flatMap(result1 -> Observable.just(result1.result))
-                .flatMap(result -> Observable.from(result.getMatches()))
+                .flatMap(result -> Observable.from(result.result.getMatches()))
                 .flatMap(match -> api.matchDetail(match.getId()))
                 .flatMap(match -> Observable.just(match.result));
 
@@ -50,6 +49,15 @@ public class RestApiCreatorTest {
         Assert.assertThat("Converteu corretamente", core.getSteamId64("omegamendes"), CoreMatchers.equalTo(76561198043220138L));
         Assert.assertThat("Converteu corretamente", core.getSteamId64("Marcelo_SOAD"), CoreMatchers.equalTo(76561198024879872L));
     }
+
+    @Test
+    public void getPlayerStats() throws IOException, InterruptedException {
+
+        DashCoreApi core = new DashCoreApi();
+        core.getPlayerStats("Marcelo_SOAD");
+    }
+
+
 
     @Test
     public void getSteamIDByList() throws IOException {

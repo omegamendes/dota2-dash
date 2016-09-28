@@ -19,6 +19,8 @@ public class MatchDetail {
     @SerializedName("duration") private Integer duration;
 
     @SerializedName("lobby_type") private Integer lobby;
+
+    @SerializedName("cluster") private Integer cluster;
     
     public boolean isRadiantWinner() {
         return radiantWinner;
@@ -42,6 +44,14 @@ public class MatchDetail {
 
     public void setLobby(Integer lobby) {
         this.lobby = lobby;
+    }
+
+    public Integer getCluster() {
+        return cluster;
+    }
+
+    public void setCluster(Integer cluster) {
+        this.cluster = cluster;
     }
 
     @Override
