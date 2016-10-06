@@ -1,16 +1,36 @@
-package com.omegamendes.dash.model;
+package com.omegamendes.dash.model.entity;
 
 import com.google.gson.annotations.SerializedName;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+
+import java.util.Date;
 
 /**
  * Created by mame on 28/09/2016.
  */
 public class Hero {
 
+    @Id
     @SerializedName("name") private String nameId;
     @SerializedName("id") private Long id;
     @SerializedName("localized_name") private String name;
     private Long timesPicked;
+
+    @CreatedDate
+    private Date savedDate;
+
+    public void setTimesPicked(Long timesPicked) {
+        this.timesPicked = timesPicked;
+    }
+
+    public Date getSavedDate() {
+        return savedDate;
+    }
+
+    public void setSavedDate(Date savedDate) {
+        this.savedDate = savedDate;
+    }
 
     public Hero(Long id) {
         this.timesPicked = 0L;

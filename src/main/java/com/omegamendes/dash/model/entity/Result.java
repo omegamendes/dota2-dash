@@ -1,4 +1,4 @@
-package com.omegamendes.dash.model;
+package com.omegamendes.dash.model.entity;
 
 /**
  * Created by omegamendes on 7/17/16.

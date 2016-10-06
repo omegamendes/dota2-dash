@@ -1,7 +1,6 @@
-package com.omegamendes.dash.rest;
+package com.omegamendes.dash.api;
 
-import com.omegamendes.dash.model.*;
-import org.springframework.stereotype.Component;
+import com.omegamendes.dash.model.entity.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,7 +9,7 @@ import rx.Observable;
 /**
  * Created by omegamendes on 7/17/16.
  */
-public interface Dota2API {
+public interface Dota2RestApi {
     
     String URL = "https://api.steampowered.com/";
     Long STEAM_ID_32 = 76561197960265728L;

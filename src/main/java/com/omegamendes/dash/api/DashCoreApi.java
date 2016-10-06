@@ -1,12 +1,14 @@
 package com.omegamendes.dash.api;
 
-import com.omegamendes.dash.model.*;
-import com.omegamendes.dash.rest.Dota2API;
-import com.omegamendes.dash.rest.RestApiCreator;
+import com.omegamendes.dash.model.entity.*;
+import com.omegamendes.dash.model.repository.HeroRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import rx.Observable;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +20,15 @@ import java.util.logging.Logger;
  */
 public class DashCoreApi {
 
-    private Dota2API api = RestApiCreator.dota2API();
+    @Autowired
+    private HeroRepository heroRepository;
+
+
+    private Dota2RestApi api = RestApiCreator.dota2API();
 
     private Logger logger = Logger.getLogger(DashCoreApi.class.getName());
+
+
 
     public Long getSteamId64(String nickName) {
         try {
@@ -38,7 +46,7 @@ public class DashCoreApi {
     }
 
     public void getPlayerStats(String playerName) {
-        Dota2API api = RestApiCreator.dota2API();
+        Dota2RestApi api = RestApiCreator.dota2API();
         Long playerId = this.getSteamId64(playerName);
         Observable<Result<MatchHistory>> payload = api.matchHistory(String.valueOf(playerId));
 
@@ -91,6 +99,27 @@ public class DashCoreApi {
                     }
                     return null;
                 }).toList().toBlocking().single();
+
+    }
+
+    public List<Hero> getHeroes() {
+        if (isUpdatable()) {
+            Observable<Hero> heroesPayload api.getHeroes();
+        }
+    }
+
+    private boolean isUpdatable() {
+        List<Hero> heroes = heroRepository.findAll();
+        if(CollectionUtils.isEmpty(heroes)){
+            return true;
+        }
+
+        Long daysBetween = ChronoUnit.DAYS.between(LocalDate.now(), heroes.get(0).getSavedDate().toInstant());
+        if(daysBetween > 60){
+            return true;
+        }
+
+        return false;
 
     }
 }

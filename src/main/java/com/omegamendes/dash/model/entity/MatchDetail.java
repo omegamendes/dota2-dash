@@ -1,4 +1,4 @@
-package com.omegamendes.dash.model;
+package com.omegamendes.dash.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 

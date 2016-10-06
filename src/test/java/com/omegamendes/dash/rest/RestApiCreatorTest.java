@@ -1,9 +1,11 @@
 package com.omegamendes.dash.rest;
 
 import com.omegamendes.dash.api.DashCoreApi;
-import com.omegamendes.dash.model.MatchDetail;
-import com.omegamendes.dash.model.MatchHistory;
-import com.omegamendes.dash.model.Result;
+import com.omegamendes.dash.api.Dota2RestApi;
+import com.omegamendes.dash.api.RestApiCreator;
+import com.omegamendes.dash.model.entity.MatchDetail;
+import com.omegamendes.dash.model.entity.MatchHistory;
+import com.omegamendes.dash.model.entity.Result;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,7 +24,7 @@ public class RestApiCreatorTest {
 
     @Test
     public void getMatchHistory() throws IOException {
-        Dota2API api = RestApiCreator.dota2API();
+        Dota2RestApi api = RestApiCreator.dota2API();
         Observable<Result<MatchHistory>> payload = api.matchHistory(String.valueOf(core.getSteamId64("Marcelo_SOAD")));
 
 

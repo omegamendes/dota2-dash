@@ -1,9 +1,8 @@
-package com.omegamendes.dash.rest;
+package com.omegamendes.dash.api;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.springframework.stereotype.Component;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -13,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RestApiCreator {
     
-    public static Dota2API dota2API() {
+    public static Dota2RestApi dota2API() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         
         builder.addInterceptor(chain -> {
@@ -36,11 +35,11 @@ public class RestApiCreator {
         OkHttpClient client = builder.build();
         
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Dota2API.URL)
+                .baseUrl(Dota2RestApi.URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-        return retrofit.create(Dota2API.class);
+        return retrofit.create(Dota2RestApi.class);
     }
 }
