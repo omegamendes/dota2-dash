@@ -3,12 +3,19 @@ package com.omegamendes.dash.rest;
 import com.omegamendes.dash.api.DashCoreApi;
 import com.omegamendes.dash.api.Dota2RestApi;
 import com.omegamendes.dash.api.RestApiCreator;
+import com.omegamendes.dash.model.entity.Hero;
 import com.omegamendes.dash.model.entity.MatchDetail;
 import com.omegamendes.dash.model.entity.MatchHistory;
 import com.omegamendes.dash.model.entity.Result;
+import com.omegamendes.dash.model.repository.HeroRepository;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 import rx.Observable;
 
 import java.io.IOException;
@@ -18,8 +25,13 @@ import java.util.List;
 /**
  * Created by omegamendes on 7/17/16.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class RestApiCreatorTest {
 
+    @Mock
+    private HeroRepository repository;
+    
+    @InjectMocks
     private DashCoreApi core = new DashCoreApi();
 
     @Test
@@ -29,7 +41,7 @@ public class RestApiCreatorTest {
 
 
         //Remove to test
-//        Observable<MatchDetail> matches = payload.subscribeOn(Schedulers.io())
+//      gh  Observable<MatchDetail> matches = payload.subscribeOn(Schedulers.io())
         Observable<MatchDetail> matches = payload
                 .flatMap(result -> Observable.from(result.result.getMatches()))
                 .flatMap(match -> api.matchDetail(match.getId()))
@@ -73,7 +85,17 @@ public class RestApiCreatorTest {
         Assert.assertThat("Converteu corretamente", steamIds, CoreMatchers.hasItem(76561198043220138L));
         Assert.assertThat("Converteu corretamente", steamIds, CoreMatchers.hasItem(76561198024879872L));
     }
-
+    
+    @Test
+    public void getHeroes() throws IOException {
+    
+        Mockito.when(repository.findAll()).thenReturn(new ArrayList<Hero>());
+        
+        List<Hero> heroes = core.getHeroes();
+        
+               
+    }
+    
 
 }
 

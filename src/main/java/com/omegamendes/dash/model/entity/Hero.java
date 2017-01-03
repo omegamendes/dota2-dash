@@ -15,7 +15,7 @@ public class Hero {
     @SerializedName("name") private String nameId;
     @SerializedName("id") private Long id;
     @SerializedName("localized_name") private String name;
-    private Long timesPicked;
+    private long timesPicked;
 
     @CreatedDate
     private Date savedDate;

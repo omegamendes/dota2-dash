@@ -21,7 +21,7 @@ public class RestApiCreator {
     
             HttpUrl url = originalHttpUrl.newBuilder()
                     .addQueryParameter("key", "E887EA32AD3B685AEEFDA3D773CC3112")
-                    .addQueryParameter("matches_requested", "5")
+                    .addQueryParameter("matches_requested", "50")
                     .build();
     
             // Request customization: add request headers

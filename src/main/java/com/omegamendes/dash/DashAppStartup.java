@@ -26,7 +26,8 @@ public class DashAppStartup
     @Autowired private DashCoreApi api;
 
     @Override public void onApplicationEvent(final ApplicationReadyEvent event) {
-        Observable<Hero> heroes = api.getHeroes
+        List<Hero> heroes = api.getHeroes();
+                
 
     }
 

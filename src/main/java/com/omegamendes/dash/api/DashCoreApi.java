@@ -9,11 +9,14 @@ import rx.Observable;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * Created by mame on 16/08/2016.
@@ -62,13 +65,13 @@ public class DashCoreApi {
                 match.getPlayers()))
                 .toList();
 
-        Map<Long, Hero> heroes = new HashMap<>();
+        Map<Long, Hero> heroes = getHeroes().stream().collect(Collectors.toMap(Hero::getId, Function.identity()));
         players.flatMap(playerList -> Observable.from(playerList))
                 .filter(player -> isEquals(this.convertTo32(playerId), player))
                 .map(player -> mapHeroes(player, heroes))
                 .subscribe();
-
-        System.out.println(heroes);
+    
+        heroes.forEach((key,item) -> System.out.println(key +" "+ item));
 
     }
 
@@ -102,10 +105,17 @@ public class DashCoreApi {
 
     }
 
+    //TODO fix this sh**
     public List<Hero> getHeroes() {
+        List<Hero> heroes = heroRepository.findAll();
         if (isUpdatable()) {
-            Observable<Hero> heroesPayload api.getHeroes();
+            Observable<Result<HeroesResult>> heroesPayload = api.getHeroes();
+            heroesPayload.flatMap(result -> Observable.from(result.result.getHeroes()))
+            .toList().subscribe(list -> heroes.addAll(list));
         }
+        
+        
+        return heroes;
     }
 
     private boolean isUpdatable() {
